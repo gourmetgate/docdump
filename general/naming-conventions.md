@@ -1,20 +1,47 @@
 # Naming conventions
 
-This document addresses the naming conventions of the project
+This document addresses the naming conventions of the project.
+
+## The name
+
+The name **"Gourmetgate"** describes a software product, which enables ordering of products and is designed for the use
+in the catering industry.
+Gourmetgate is a combination of the word "gourmet" (enjoyer of delicious meals) and "gate" (portal, access enabler).
+Both parts start with the same letter for onomatopoeic reasons.
 
 ## Display name
-**Gourmetgate** is the display name of the project. The first letter is upper case. In normal text, when writing about the project, this spelling shall be used. 
+
+**"Gourmetgate"** is the display name of the project. The first letter is upper case. In normal text, when writing about
+the project, this spelling shall be used.
 
 ## Technical name
-**gourmetgate** is the technical name of the project. All letters are lower case. When creating e.g. a Java package, this spelling shall be used. 
+
+**"gourmetgate"** is the technical name of the project. All letters are lower case. When creating e.g. a Java package,
+this spelling shall be used.
 
 ## Web appearance
-There are two official domains which belong to this project. 
+
+There are two official domains which belong to this project.
+
 - On [gourmetgate.app](https://gourmetgate.app), the public website is hosted.
-- On [*.gouga.app](https://gouga.app), the instances of the software are hosted. The subdomain indicates the name of the customer to which the instance belongs.
+- On [*.gouga.app](https://gouga.app), the instances of the software are hosted. The subdomain indicates the name of the
+  customer to which the instance belongs.
 
 ## User interface module names
-The user interface of the software is separated into modules. The module name are prefixed with "Point of " and can be written in short form, consisting of the starting letters of the module name. Examples: 
+
+The user interface of the software is separated into modules. A module name is prefixed with "Point of " and has a short
+form consisting of the starting letters of the module name. Examples:
+
 - Point of Sale (POS)
 - Point of Order (POO)
 - Point of Administration (POA)
+
+## Sub-application names
+
+Sub-application are software pieces which run standalone beside the main "gourmetgate" application. Example:
+
+- **"Printplate"** is the name of the sub-application responsible for forwarding print jobs from the main application to
+  the corresponding physical printer.
+
+These sub-applications should follow the same convention as Gourmet gate. The name shall be a combination of two words,
+the spelling of the display name and the technical name should match the schema of the main application. 
