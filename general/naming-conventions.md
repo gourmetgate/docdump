@@ -36,12 +36,8 @@ form consisting of the starting letters of the module name. Examples:
 - Point of Order (POO)
 - Point of Administration (POA)
 
-## Sub-application names
+## Repository naming
 
-Sub-application are software pieces which run standalone beside the main "gourmetgate" application. Example:
-
-- **"Printplate"** is the name of the sub-application responsible for forwarding print jobs from the main application to
-  the corresponding physical printer.
-
-These sub-applications should follow the same convention as Gourmet gate. The name shall be a combination of two words,
-the spelling of the display name and the technical name should match the schema of the main application. 
+(Git) repositories, containing software or documentation have to follow the same pattern. The name shall be a combination of
+two words, starting with the same letter. The spelling of the display name and the technical name, in case the repository
+contains software, should match the schema of the main Groumetgate application.
