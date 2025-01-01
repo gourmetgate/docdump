@@ -12,16 +12,15 @@ Lorem ipsum
 
 A purchasable article. Each article has to belong to a category and must have a vat percentage assigned.
 
-| Property name | Type    | Description                                           |
-|---------------|---------|-------------------------------------------------------|
-| article_id    | UUID    | Unique identifier of the article.                     |
-| name          | String  | Name of the article.                                  |
-| category_id   | UUID    | ID of the category, the article belongs to.           |
-| price         | String  | Selling price of the article in CHF.                  |
-| vat_id        | UUID    | ID of the vat.                                        |
-| cost          | String  | Purchase cost of the article (optional).              |
-| pos_available | boolean | Indicates, if the article is purchasable via the POS. |
-| poo_available | boolean | Indicates, if the article is purchasable via the POO. |
+| Property name | Type    | Description                                 |
+|---------------|---------|---------------------------------------------|
+| article_id    | UUID    | Unique identifier of the article.           |
+| name          | String  | Name of the article.                        |
+| category_id   | UUID    | ID of the category, the article belongs to. |
+| price         | String  | Selling price of the article in CHF.        |
+| vat_id        | UUID    | ID of the vat.                              |
+| cost          | String  | Purchase cost of the article (optional).    |
+| available     | boolean | Indicates, if the article is purchasable.   |
 
 ### Category
 
@@ -37,6 +36,7 @@ A order of articles.
 - order_id
 - number
 - evt_create
+- table_id (soft reference)
 
 ### Order item
 
@@ -45,7 +45,6 @@ An article, added to an order.
 - order_item_id
 - order_id
 - article_id (soft reference)
-- table_id (soft reference)
 - name
 - price
 - vat
@@ -59,7 +58,7 @@ A selected variant option of a order item
 - order_item_id
 - variant_option_id (soft reference)
 - name
-- price
+- additional_price
 
 ### Payment
 
@@ -128,7 +127,7 @@ A concrete option of a variant. E.g. Ketchup for the variant "sauce".
 - variant_option_id
 - variant_id
 - name
-- price
+- additional_price
 
 ### Article to variant
 
@@ -155,3 +154,10 @@ User of the software.
 - blocked
 - anonymous
 - admin
+
+### User to category
+
+Indicates, which categories can be sold by a specific user.
+
+- user_id
+- category_id
