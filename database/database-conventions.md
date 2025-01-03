@@ -60,7 +60,7 @@ Examples:
 A mapping table connects two entities with a many-to-many relationship. The table name should follow this schema:
 `{entity1_name}_to_{entity2_name}`. Example `user_to_category`.
 
-The `to` does not often appear in a normal column name and helps to recognise mapping tables just by its name.
+The `to` does not often appear in a normal column name and helps to recognise a mapping table just by its name.
 
 ### Primary key
 
