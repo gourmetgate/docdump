@@ -2,7 +2,6 @@
 
 ```mermaid
 erDiagram
-    category ||--o{ article: ""
     category {
         varchar(32) category_id
         varchar(80) name
@@ -109,4 +108,25 @@ erDiagram
         varchar(32) user_id
         varchar(32) category_id
     }
+    category ||--o{ article: ""
+    article ||--o{ order_item: "soft reference"
+    order ||--|{ order_item: ""
+    order_item ||--o{ order_item_option: ""
+    table ||--o{ order: ""
+    vat ||--o{ article: ""
+    variant_option ||--o{ order_item_option: ""
+    order ||--o{ payment: ""
+    printer ||--o{ print_job: ""
+    order ||--o{ print_job: ""
+    order_item |o--o{ print_job: ""
+    printer ||--o{ printer_to_category: ""
+    category ||--o{ printer_to_category: ""
+    printer ||--o{ printer_to_user: ""
+    user ||--o{ printer_to_user: ""
+    user |o--o| settings: ""
+    variant ||--|{ variant_option: ""
+    variant ||--o{ variant_to_article: ""
+    article ||--o{ variant_to_article: ""
+    user ||--o{ user_to_category: ""
+    category ||--o{ user_to_category: ""
 ```
