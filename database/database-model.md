@@ -12,15 +12,15 @@ Lorem ipsum
 
 A purchasable article. Each article has to belong to a category and must have a vat percentage assigned.
 
-| Property name | Type    | Description                                 |
-|---------------|---------|---------------------------------------------|
-| article_id    | UUID    | Unique identifier of the article.           |
-| name          | String  | Name of the article.                        |
-| category_id   | UUID    | ID of the category, the article belongs to. |
-| price         | String  | Selling price of the article in CHF.        |
-| vat_id        | UUID    | ID of the vat.                              |
-| cost          | String  | Purchase cost of the article (optional).    |
-| available     | boolean | Indicates, if the article is purchasable.   |
+| Property name | Type    | Description                                          |
+|---------------|---------|------------------------------------------------------|
+| article_id    | UUID    | Unique identifier of the article.                    |
+| name          | String  | Name of the article.                                 |
+| category_id   | UUID    | ID of the category, the article belongs to.          |
+| price         | String  | Selling price of the article in CHF.                 |
+| vat_id        | UUID    | ID of the vat.                                       |
+| cost          | String  | Purchase cost of the article (optional).             |
+| available     | boolean | Indicates, if the article is available for purchase. |
 
 ### Category
 
@@ -52,7 +52,7 @@ An article, added to an order.
 
 ### Order item option
 
-A selected variant option of a order item
+A selected variant option of an order item
 
 - order_item_option_id
 - order_item_id
@@ -62,11 +62,14 @@ A selected variant option of a order item
 
 ### Payment
 
-Payment attempts, must not be successful.
+Payment attempts, does not have to be successful. The amount is the final amount on the bill. This includes the summed
+price of all order items, combined with the tip.
 
 - payment_id
-- ext_id
+- external_reference
 - order_id
+- amount
+- tip
 - state
 - evt_pay
 
@@ -76,14 +79,14 @@ Payment attempts, must not be successful.
 - name
 - ip_address
 - active
-- print_single_items
+- print_items_separate
 
 ### Print job
 
 - print_job_id
 - printer_id
 - order_id
-- order_item_id (null when complete order is printed)
+- order_item_id (null when print_items_separate is false)
 - content
 
 ### Printer to category
