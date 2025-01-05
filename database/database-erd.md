@@ -59,6 +59,54 @@ erDiagram
         varchar(32) printer_id
         varchar(32) order_id
         varchar(32) order_item_id
-        bytes content
+        blob content
+    }
+    printer_to_category {
+        varchar(32) printer_id
+        varchar(32) category_id
+    }
+    printer_to_user {
+        varchar(32) printer_id
+        varchar(32) user_id
+    }
+    settings {
+        varchar(32) settings_id
+        varchar(32) user_id
+        json data
+    }
+    table {
+        varchar(32) table_id
+        varchar(80) name
+    }
+    variant {
+        varchar(32) variant_id
+        varchar(80) name
+    }
+    variant_option {
+        varchar(32) variant_option_id
+        varchar(32) variant_id
+        varchar(80) name
+        numeric additional_price
+    }
+    variant_to_article {
+        varchar(32) variant_id
+        varchar(32) article_id
+    }
+    vat {
+        varchar(32) vat_id
+        varchar(32) percentage
+    }
+    user {
+        varchar(32) user_id
+        varchar(80) username
+        varchar(32) password_sha256
+        varchar(16) salt
+        boolean blocked
+        boolean anonymus
+        boolean admin
+    }
+    user_to_category {
+        varchar(32) user_id
+        varchar(32) category_id
     }
 ```

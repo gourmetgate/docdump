@@ -93,7 +93,6 @@ price of all order items, combined with the tip.
 
 Mapping table to specify, which printer is can print order items of corresponding category
 
-- printer_category_id
 - printer_id
 - category_id
 
@@ -101,7 +100,6 @@ Mapping table to specify, which printer is can print order items of correspondin
 
 Mapping table to specify, which user can print order on printer
 
-- printer_user_id
 - printer_id
 - user_id
 
@@ -132,12 +130,12 @@ A concrete option of a variant. E.g. Ketchup for the variant "sauce".
 - name
 - additional_price
 
-### Article to variant
+### Variant to article
 
 Mapping table to assign a one or multiple variants to an article.
 
-- article_id
 - variant_id
+- article_id
 
 ### Vat
 
