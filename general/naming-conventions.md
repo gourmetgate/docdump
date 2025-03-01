@@ -40,4 +40,4 @@ form consisting of the starting letters of the module name. Examples:
 
 (Git) repositories, containing software or documentation have to follow the same pattern. The name shall be a combination of
 two words, starting with the same letter. The spelling of the display name and the technical name, in case the repository
-contains software, should match the schema of the main Groumetgate application.
+contains software, should match the schema of the main Gourmetgate application.
