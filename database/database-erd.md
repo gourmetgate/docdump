@@ -103,6 +103,7 @@ erDiagram
         boolean blocked
         boolean anonymus
         boolean admin
+        boolean pay_advance
     }
     user_to_category {
         varchar(32) user_id

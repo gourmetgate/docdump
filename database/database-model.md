@@ -155,6 +155,7 @@ User of the software.
 - blocked
 - anonymous
 - admin
+- pay_advance
 
 ### User to category
 

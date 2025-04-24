@@ -35,25 +35,46 @@ This document lists all use cases which Gourmetgate needs to fullfill. Each use 
 
 - Select table the customer sits on
 - Split the bill
+- Send amount to card terminal
 
 ### Printing
 
 - Print order on corresponding printer
 - Print ordered articles separate on corresponding printer
 
-### Collecting money
-
-- Send amount to card terminal
-
 ## Backoffice use cases
 
 ### Assortment
 
 - Configure categories (name)
-- Configure vat (percentage)
 - Configure articles (name, category, vat, price, cost, available)
 - Configure variants (name, variant option, additional price)
-- Configure users ()
 
-, variants, categories, tables, vat and users
-- 
+### User
+
+- Create users with password
+- Change password of user
+- Block a user
+- Promote/demote a user with admin permission (admin = access to backoffice)
+- Flag/deflag user as anonymus (anonymus = no login required)
+- Configure available printers per user
+- Enable/disable paying before ordering
+
+### Economics
+
+- Configure vat percentages
+- See selling statistics
+
+### Printers
+
+- Add label printer by IP Address
+- Add a name for the printer
+- Choose categories printed on this printer
+- See which user can print on this printer
+- Delete printer
+
+### Tables
+
+- Add/remove dining tabels 
+- Name a table
+- See order history for specific table
