@@ -27,17 +27,6 @@ There are two official domains which belong to this project.
 - On [*.gouga.app](https://gouga.app), the instances of the software are hosted. The subdomain indicates the name of the
   customer to which the instance belongs.
 
-## User interface module names
+## Other conventions
 
-The user interface of the software is separated into modules. A module name is prefixed with "Point of " and has a short
-form consisting of the starting letters of the module name. Examples:
-
-- Point of Sale (POS)
-- Point of Order (POO)
-- Point of Administration (POA)
-
-## Repository naming
-
-(Git) repositories, containing software or documentation have to follow the same pattern. The name shall be a combination of
-two words, starting with the same letter. The spelling of the display name and the technical name, in case the repository
-contains software, should match the schema of the main Gourmetgate application.
+- [Database conventions](https://github.com/gourmetgate/docdump/blob/main/database/database-conventions.md)
