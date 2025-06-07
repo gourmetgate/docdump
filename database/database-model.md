@@ -18,7 +18,7 @@ A purchasable article. Each article has to belong to a category and must have a 
 | name          | String  | Name of the article.                                 |
 | category_id   | UUID    | ID of the category, the article belongs to.          |
 | price         | String  | Selling price of the article in CHF.                 |
-| vat_id        | UUID    | ID of the vat.                                       |
+| vat_id        | UUID    | ID of the vat percentage.                            |
 | cost          | String  | Purchase cost of the article (optional).             |
 | available     | boolean | Indicates, if the article is available for purchase. |
 

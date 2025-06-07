@@ -1,0 +1,112 @@
+openapi: 3.1.0
+info:
+  title: GourmetGate
+  description: API specification for the GourmetGate project
+  version: 1.0.0
+servers:
+  - url: 'http://localhost:8080'
+    description: development environment
+  - url: 'https://gouga.com'
+    description: production environment
+paths:
+  /articles:
+    description: Purchasable article
+    get:
+      summary: Returns a list of all available articles
+      tags:
+        - Articles
+      parameters:
+        - in: query
+          name: available
+          schema:
+            type: boolean
+          example: 'true'
+          description: 'When set to true, only available articles are returned. When set to false, only unavailable articles are returned. When unspecified, all articles are returned. '
+      responses:
+        200:
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/ArticlesResponse"
+    post:
+      summary: Create a new article
+      tags:
+        - Articles
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/Article"
+      responses:
+        200:
+          description: OK - note that article_id property will get replaced when creating new article
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/Article"
+    put:
+      summary: Create a new article
+      tags:
+        - Articles
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/Article"
+      responses:
+        200:
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/Article"
+
+components:
+  schemas:
+    Article:
+      type: object
+      properties:
+        article_id:
+          type: string
+          description: 'Unique identifier of the article'
+          format: UUID
+          example: '86cb99de-cb0b-450f-b239-526b3efc9bda'
+        name:
+          type: string
+          description: 'Name of the article'
+          example: 'HotDog'
+        category_id:
+          type: string
+          description: 'ID of the category, the article belongs to'
+          format: UUID
+          example: 'bed363fa-287b-43e9-9ee2-d676ff7bd774'
+        price:
+          type: string
+          description: 'Selling price of the article in CHF'
+          example: '5.00'
+        vat_id:
+          type: string
+          description: ID of the vat percentage
+        cost:
+          type: string
+          description: 'Purchase cost of the article (optional)'
+          example: '3.50'
+        available:
+          type: boolean
+          description: 'Indicates, if the article is available for purchase'
+          example: 'true'
+    ArticlesResponse:
+      type: object
+      properties:
+        articles:
+          type: array
+          items:
+            $ref: "#/components/schemas/Article"
+
+
+tags:
+  - name: Articles
+    description: Purchasable articles
+    externalDocs:
+      url: 'https://github.com/gourmetgate/docdump/blob/main/database/database-model.md#article'
