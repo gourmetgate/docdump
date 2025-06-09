@@ -79,10 +79,72 @@ paths:
       responses:
         200:
           description: OK
+
+  /categories:
+    get:
+      summary: Returns a list of all categories
+      tags:
+        - Categories
+      responses:
+        200:
+          description: OK
           content:
             application/json:
               schema:
-                $ref: "#/components/schemas/Article"
+                $ref: "#/components/schemas/CategoryResponse"
+    post:
+      summary: Create a new category
+      tags:
+        - Categories
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/Category"
+      responses:
+        200:
+          description: OK - note that category_id property will get replaced when creating new category
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/Category"
+  /categories/{categoryId}:
+    get:
+      summary: Get category by ID
+      tags:
+        - Categories
+      responses:
+        200:
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/Category"
+    put:
+      summary: Update category by ID
+      tags:
+        - Categories
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/Category"
+      responses:
+        200:
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/Category"
+    delete:
+      summary: Delete a category by ID
+      tags:
+        - Categories
+      responses:
+        200:
+          description: OK
+
+
 components:
   schemas:
     Article:
@@ -109,6 +171,7 @@ components:
         vat_id:
           type: string
           description: ID of the vat percentage
+          example: '2432f1f9-de7e-4f00-986d-db3ec47cdaeb'
         cost:
           type: string
           description: 'Purchase cost of the article (optional)'
@@ -124,6 +187,25 @@ components:
           type: array
           items:
             $ref: "#/components/schemas/Article"
+    Category:
+      type: object
+      properties:
+        category_id:
+          type: string
+          description: 'Unique identifier of the category'
+          format: UUID
+          example: 'fb6259f1-106c-40f5-898b-d3c64216a732'
+        name:
+          type: string
+          description: 'Name of the category'
+          example: '2bf53e31-08ea-4687-80a2-eb73b0cef925'
+    CategoryResponse:
+      type: object
+      properties:
+        categories:
+          type: array
+          items:
+            $ref: "#/components/schemas/Category"
 
 
 tags:
@@ -131,3 +213,7 @@ tags:
     description: Purchasable articles
     externalDocs:
       url: 'https://github.com/gourmetgate/docdump/blob/main/database/database-model.md#article'
+  - name: Categories
+    description: A category of articles to enable logical grouping
+    externalDocs:
+      url: 'https://github.com/gourmetgate/docdump/blob/main/database/database-model.md#category'
