@@ -10,7 +10,6 @@ servers:
     description: production environment
 paths:
   /articles:
-    description: Purchasable article
     get:
       summary: Returns a list of all available articles
       tags:
@@ -45,8 +44,20 @@ paths:
             application/json:
               schema:
                 $ref: "#/components/schemas/Article"
+  /articles/{articleId}:
+    get:
+      summary: Get article by ID
+      tags:
+        - Articles
+      responses:
+        200:
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/Article"
     put:
-      summary: Create a new article
+      summary: Update article by ID
       tags:
         - Articles
       requestBody:
@@ -61,7 +72,17 @@ paths:
             application/json:
               schema:
                 $ref: "#/components/schemas/Article"
-
+    delete:
+      summary: Delete an article by ID
+      tags:
+        - Articles
+      responses:
+        200:
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/Article"
 components:
   schemas:
     Article:
