@@ -42,7 +42,7 @@ This document lists all use cases which Gourmetgate needs to fullfill. Each use 
 - Print order on corresponding printer
 - Print ordered articles separate on corresponding printer
 
-## Backoffice use cases
+## Administrator use cases
 
 ### Assortment
 
@@ -75,6 +75,7 @@ This document lists all use cases which Gourmetgate needs to fullfill. Each use 
 
 ### Tables
 
-- Add/remove dining tabels 
+- Create a Room 
+- Add/remove dining tabels to a room
 - Name a table
-- See order history for specific table
+- See order history for a specific table
