@@ -31,8 +31,6 @@ flowchart LR
 The database is a relational postgres database. The data of the application is highly structured, therefore a relational
 database is the optimal choice for this kind of software.
 
-### Schema generation
-
 ## Backend Server
 
 The backend server is a Java application, using the Eclipse Scout Framework. The backend is serving a stateless REST API
@@ -98,3 +96,8 @@ API Layer is responsible for permission checking.
 
 The entire backend server is stateless implemented. The only exception is the permission-check and authentication
 mechanism, where the framework support is used.
+
+## User interface
+
+The user interfaces is built using widgets from the scout framework. The user interface is implemented using TypeScript.
+The code is bundled using webpack and served by the backend server.
