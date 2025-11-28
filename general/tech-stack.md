@@ -99,5 +99,12 @@ mechanism, where the framework support is used.
 
 ## User interface
 
-The user interfaces is built using widgets from the scout framework. The user interface is implemented using TypeScript.
+The user interfaces is built using widgets from the scout framework. The user interface is implemented in TypeScript.
 The code is bundled using webpack and served by the backend server.
+
+The UI requests data from the backend using `Repositories`. A repository contains the implementation to request the
+endpoint. The Repository in the UI is the other side of the API layer of the backend server. The repository may also
+transform the data to make it usable for the UI widgets.
+
+The UI widgets delegate all data operations to the Repositories. The widget is responsible for rendering the data. It is
+important, to reduce the amount of calls to the backend. Rather make a call with a lot of data than make multiple calls. 
