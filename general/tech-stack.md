@@ -113,14 +113,12 @@ important, to reduce the amount of calls to the backend. Rather make a call with
 ## Technical Diagram
 
 ```mermaid
-flowchart LR
+flowchart TB
   subgraph "Scout JS UI"
-    direction TB
     uiWidget(ArticlePage)
     uiRepo(ArticleRepository)
   end
   subgraph "Scout Backend"
-    direction TB
     resource(ArticleResource)
     service(ArticleService)
     repository(ArticlePersistenceRepository)
