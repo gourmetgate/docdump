@@ -119,9 +119,15 @@ flowchart TB
     uiRepo(ArticleRepository)
   end
   subgraph "Scout Backend"
-    resource(ArticleResource)
-    service(ArticleService)
-    repository(ArticlePersistenceRepository)
+    subgraph API Layer
+      resource(ArticleResource)
+    end
+    subgraph Core Layer
+      service(ArticleService)
+    end
+    subgraph Persistence Layer
+      repository(ArticlePersistenceRepository)
+    end
   end
   db[(Postgres Database)]
   uiWidget <-->|ArticleDo| uiRepo
