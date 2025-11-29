@@ -43,8 +43,9 @@ database and passes it to the core layer. The main library used in the persisten
 is [JOOQ](https://www.jooq.org/).
 
 jOOQ generates Java code from the database and lets you build type safe SQL queries through its fluent API. Those
-queries are written in the `Repository` class of the corresponding entity. The article entity has a class called
-`ArticleRepository` where all database operations with this are performed.
+queries are written in the `PersistenceRepository` class of the corresponding entity. The article entity has a class
+called
+`ArticlePersistenceRepository` where all database operations with this are performed.
 
 Because jOOQ is a database-first library, the java code gets generated based on the database schema. To generate the
 schema, classical Hibernate entities are used. To not make a mess between the two technologies, Hibernate is never used
@@ -85,7 +86,7 @@ When the structure is the same in database and API, the API data object is direc
 Example for the article entity:
 
 - API data object: `ArticleDo`
-- Database data object: `ArticleEntityDo`
+- Database data object: `ArticlePersistenceDo`
 
 This generates more complexity and an additional transformation step, but ensures a clean handling of data.
 
@@ -108,3 +109,26 @@ transform the data to make it usable for the UI widgets.
 
 The UI widgets delegate all data operations to the Repositories. The widget is responsible for rendering the data. It is
 important, to reduce the amount of calls to the backend. Rather make a call with a lot of data than make multiple calls. 
+
+## Technical Diagram
+
+```mermaid
+flowchart LR
+  subgraph "Scout JS UI"
+    direction TB
+    uiWidget(ArticlePage)
+    uiRepo(ArticleRepository)
+  end
+  subgraph "Scout Backend"
+    direction TB
+    resource(ArticleResource)
+    service(ArticleService)
+    repository(ArticlePersistenceRepository)
+  end
+  db[(Postgres Database)]
+  uiWidget <-->|ArticleDo| uiRepo
+  uiRepo <-->|ArticleDo| resource
+  resource <-->|ArticleDo| service
+  service <-->|ArticlePersistenceDo| repository
+  repository <-->|ArticleRecord| db
+```
