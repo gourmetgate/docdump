@@ -2,10 +2,6 @@
 
 This document gives an overview over the data structure of the application and describes the purpose of the entities.
 
-## Overview
-
-Lorem ipsum
-
 ## Entities
 
 ### Article
@@ -26,17 +22,22 @@ A purchasable article. Each article has to belong to a category and must have a 
 
 A category of articles to enable logical grouping.
 
-- category_id
-- name
+| Property name | Type   | Description                        |
+|---------------|--------|------------------------------------|
+| category_id   | UUID   | Unique identifier of the category. |
+| name          | String | Name of the category.              |
 
 ### Order
 
-A order of articles.
+A order of a customer
 
-- order_id
-- number
-- evt_create
-- table_id (soft reference)
+| Property name | Type     | Description                                                    |
+|---------------|----------|----------------------------------------------------------------|
+| order_id      | UUID     | Unique identifier of the order.                                |
+| number        | Long     | Human readable unique order number, auto-increments.           |
+| evt_create    | Datetime | Datetime when the order is created                             |
+| table_id      | UUID     | Reference to the table, the customer sits on. (Soft reference) |
+| user_id       | UUID     | Reference to the user, who created the order.                  |
 
 ### Order item
 

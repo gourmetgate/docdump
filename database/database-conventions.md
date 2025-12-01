@@ -66,3 +66,5 @@ The `to` does not often appear in a normal column name and helps to recognise a 
 
 The primary key of a mapping table should be a composite key of the two primary keys of the connected entities. Example:
 `user_id + category_id = primary key`.
+
+##  

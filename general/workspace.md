@@ -39,4 +39,5 @@
 4. Install the [Mermaid](https://plugins.jetbrains.com/plugin/20146-mermaid) plugin to render diagrams in markdown
 5. Install the [OpenAPI](https://plugins.jetbrains.com/plugin/14837-openapi-swagger-editor) plugin to have rendered
    preview of the OpenAPI documentation
+6. Install the [Excalidraw](https://plugins.jetbrains.com/plugin/12178-atom-onedark-theme) plugin to edit the UI mockups
 
