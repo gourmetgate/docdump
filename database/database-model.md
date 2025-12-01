@@ -13,7 +13,7 @@ A purchasable article. Each article has to belong to a category and must have a 
 | article_id    | UUID    | Unique identifier of the article.                    |
 | name          | String  | Name of the article.                                 |
 | category_id   | UUID    | ID of the category, the article belongs to.          |
-| price         | String  | Selling price of the article in CHF.                 |
+| price         | String  | Selling price of the article in CHF inclusive vat.   |
 | vat_id        | UUID    | ID of the vat percentage.                            |
 | cost          | String  | Purchase cost of the article (optional).             |
 | available     | boolean | Indicates, if the article is available for purchase. |
@@ -29,7 +29,7 @@ A category of articles to enable logical grouping.
 
 ### Order
 
-A order of a customer
+A order of a customer.
 
 | Property name | Type     | Description                                                    |
 |---------------|----------|----------------------------------------------------------------|
@@ -41,25 +41,30 @@ A order of a customer
 
 ### Order item
 
-An article, added to an order.
+An article, added to an order. S
 
-- order_item_id
-- order_id
-- article_id (soft reference)
-- name
-- price
-- vat
-- comment
+| Property name | Type   | Description                                         |
+|---------------|--------|-----------------------------------------------------|
+| order_item_id | UUID   | Unique identifier of the order item.                |
+| order_id      | UUID   | Reference to the order the item belongs to.         |
+| article_ID    | UUID   | Reference to the original article. (Soft reference) |
+| name          | String | Name of the order item (same as article name).      |
+| price         | String | Selling price of the order item inclusive vat.      |
+| vat           | String | Amount of vat in CHF.                               |
+| cost          | String | Purchase cost of order item. (optional)             |
+| comment       | String | User comment on this article item. (optional)       |
 
 ### Order item option
 
-A selected variant option of an order item
+A chosen variant option of an order item. E.g. "Ketchup" for the order item "Fries".
 
-- order_item_option_id
-- order_item_id
-- variant_option_id (soft reference)
-- name
-- additional_price
+| Property name        | Type   | Description                                                                            |
+|----------------------|--------|----------------------------------------------------------------------------------------|
+| order_item_option_id | UUID   | Unique identifier of the order item option.                                            |
+| order_item_id        | UUID   | Reference to the order item the option belongs to.                                     |
+| variant_option_id    | UUID   | Reference to the original variant option. (Soft reference)                             |
+| name                 | String | Name of the option. E.g. "Ketchup".                                                    |
+| additional_price     | String | Additional price of the option. This is not included in the price of the order option. |
 
 ### Payment
 
