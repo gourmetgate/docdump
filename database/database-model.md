@@ -38,10 +38,11 @@ A order of a customer.
 | evt_create    | Datetime | Datetime when the order is created                             |
 | table_id      | UUID     | Reference to the table, the customer sits on. (Soft reference) |
 | user_id       | UUID     | Reference to the user, who created the order.                  |
+| tip           | String   | Amount of tip in CHF for this order (Optional).                |
 
 ### Order item
 
-An article, added to an order. S
+An article, added to an order.
 
 | Property name | Type   | Description                                         |
 |---------------|--------|-----------------------------------------------------|
@@ -69,31 +70,41 @@ A chosen variant option of an order item. E.g. "Ketchup" for the order item "Fri
 ### Payment
 
 Payment attempts, does not have to be successful. The amount is the final amount on the bill. This includes the summed
-price of all order items, combined with the tip.
+price of all order items, summed with the additional price of the order options and combined with the tip.
 
-- payment_id
-- external_reference
-- order_id
-- amount
-- tip
-- state
-- evt_pay
+| Property name | Type     | Description                                                              |
+|---------------|----------|--------------------------------------------------------------------------|
+| payment_id    | UUID     | Unique identifier of the payment attempt.                                |
+| external_id   | String   | Unique identifier of the external payment provider.                      |
+| order_id      | UUID     | Reference to the order the payment belongs to.                           |
+| amount        | String   | Total amount on the bill. Sum of order positions, order options and tip. |
+| state         | String   | State of the payment (enum). Possible states: `PAYED`, `FAILED`, `OPEN`. |
+| evt_pay       | Datetime | Date and time when the payment was paid (optional).                      |
 
 ### Printer
 
-- printer_id
-- name
-- ip_address
-- active
-- print_items_separate
+A printer which prints orders onto a label or paper to be prepared in the kitchen.
+
+| Property name     | Type    | Description                                                                                                           |
+|-------------------|---------|-----------------------------------------------------------------------------------------------------------------------|
+| printer_id        | UUID    | Unique identifier of the printer.                                                                                     |
+| name              | String  | Printer name.                                                                                                         |
+| ip_address        | String  | IP âddress of the printer in the LAN of the Printplate application.                                                   |
+| active            | boolean | Indicates if the printer is active and orders can be printed on.                                                      |
+| group_order_items | boolean | When true all order items are printed on the same label. When false, a separate label for each order item is printed. |
 
 ### Print job
 
-- print_job_id
-- printer_id
-- order_id
-- order_item_id (null when print_items_separate is false)
-- content
+Print jobs that have to be printed by Printplate.
+
+| Property name | Type   | Description                                                                                                                |
+|---------------|--------|----------------------------------------------------------------------------------------------------------------------------|
+| print_job_id  | UUID   | Unique identifier of the print job.                                                                                        |
+| printer_id    | UUID   | Reference to the printer the job is printed on.                                                                            |
+| order_id      | UUID   | Reference to the order.                                                                                                    |
+| order_item_id | UUID   | References the printed order item, when `group_order_item` is disabled and just s single item is printed. Otherwise `null` |
+| content       | blob   | Content to be printed.                                                                                                     |
+| state         | String | State of the print job (enum). Possible states: `OPEN`, `PRINTED`.                                                         |
 
 ### Printer to category
 
@@ -115,9 +126,19 @@ Mapping table to specify, which user can print order on printer
 - user_id (null for application wide setting)
 - setting_data (JSON)
 
+### Room
+
+A room where tables are located.
+
+- room_id
+- name
+
 ### Table
 
+A table where the customer sits on and orders articles to.
+
 - table_id
+- room_id
 - name
 
 ### Variant
