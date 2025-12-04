@@ -203,15 +203,16 @@ Possible vat percentage for
 
 User of the software.
 
-| Property name   | Type    | Description                                             |
-|-----------------|---------|---------------------------------------------------------|
-| user_id         | UUID    | Unique identifier of the user.                          |
-| username        | String  | Unique name of the user.                                |
-| password_sha256 | String  | SHA-256 has representation of the password.             |
-| salt            | String  | Password salt.                                          |
-| blocked         | Boolean | Indicates if the user is blocked.                       |
-| anonymous       | Boolean | Indicates if the user can login without authentication. |
-| admin           | Boolean | Indicates if the user has access to the admin view.     |
+| Property name   | Type    | Description                                                                 |
+|-----------------|---------|-----------------------------------------------------------------------------|
+| user_id         | UUID    | Unique identifier of the user.                                              |
+| username        | String  | Unique name of the user.                                                    |
+| password_sha256 | String  | SHA-256 has representation of the password.                                 |
+| salt            | String  | Password salt.                                                              |
+| blocked         | Boolean | Indicates if the user is blocked.                                           |
+| anonymous       | Boolean | Indicates if the user can login without authentication.                     |
+| admin           | Boolean | Indicates if the user has access to the admin view.                         |
+| paused          | Boolean | Indicates if the user is paused and can not place any orders at the moment. |
 
 ### User to category
 
