@@ -108,85 +108,117 @@ Print jobs that have to be printed by Printplate.
 
 ### Printer to category
 
-Mapping table to specify, which printer is can print order items of corresponding category
+The user can configure, which category of articles will be printed on which printer. E.g. drinks will be printed at the
+bar and food will be printed in the kitchen. This table represents the n:n relation between these two entities.
 
-- printer_id
-- category_id
+| Property name | Type | Description                                         |
+|---------------|------|-----------------------------------------------------|
+| printer_id    | UUID | Reference to the printer. Part of the primary key.  |
+| category_id   | UUID | Reference to the category. Part of the primary key. |
 
 ### Printer to user
 
-Mapping table to specify, which user can print order on printer
+Depending on the user who places the order, a different printer should print the order. E.g. when a coke is ordered at
+bar, the order should come out of a different printer than when the coke is ordered in the restaurant hall. This table
+represents the n:n relation between these two entities.
 
-- printer_id
-- user_id
+| Property name | Type | Description                                        |
+|---------------|------|----------------------------------------------------|
+| printer_id    | UUID | Reference to the printer. Part of the primary key. |
+| user_id       | UUID | Reference to the user. Part of the primary key.    |
 
 ### Settings
 
-- setting_id
-- user_id (null for application wide setting)
-- setting_data (JSON)
+Json based storage table for settings. Both, application-wide and user specific settings are stored in this table.
+
+| Property name | Type | Description                                                              |
+|---------------|------|--------------------------------------------------------------------------|
+| setting_id    | UUID | Unique identifier of the setting.                                        |
+| user_id       | UUID | Reference to the user. Null when an application wide setting (optional). |
+| data          | JSON | Setting serialized as JSON.                                              |
 
 ### Room
 
-A room where tables are located.
+A physical room in a building where customers are served.
 
-- room_id
-- name
+| Property name | Type   | Description                    |
+|---------------|--------|--------------------------------|
+| room_id       | UUID   | Unique identifier of the room. |
+| name          | String | Name of the room               |
 
 ### Table
 
-A table where the customer sits on and orders articles to.
+A table (not a database table) where the customer sits on and orders articles to.
 
-- table_id
-- room_id
-- name
+// TODO rename entity -> conflicting keyword in SQL
+
+| Property name | Type   | Description                     |
+|---------------|--------|---------------------------------|
+| table_id      | UUID   | Unique identifier of the table. |
+| room_id       | UUID   | Room the table stands in.       |
+| name          | String | Name or number of the table.    |
 
 ### Variant
 
-A variant can be added to an article to extend its property. A sauce could be a variant.
+A variant is a modifier for an article. E.g. the article "HotDog" has the variant "Sauce". A variant can be added to
+multiple articles.
 
-- variant_id
-- name
+| Property name | Type    | Description                                                |
+|---------------|---------|------------------------------------------------------------|
+| variant_id    | UUID    | Unique identifier of the variant.                          |
+| name          | String  | Name of the variant.                                       |
+| single_option | Boolean | Indicates if only a single option of this variant allowed. |
 
 ### Variant option
 
-A concrete option of a variant. E.g. Ketchup for the variant "sauce".
+A concrete option of a variant. E.g. "Ketchup" for the variant "Sauce".
 
-- variant_option_id
-- variant_id
-- name
-- additional_price
+| Property name     | Type   | Description                              |
+|-------------------|--------|------------------------------------------|
+| variant_option_id | UUID   | Unique identifier of the variant option. |
+| variant_id        | UUID   | The variant the option belongs to.       |
+| name              | String | The name of the variant option.          |
+| additional_price  | String | The price this option costs.             |
 
 ### Variant to article
 
 Mapping table to assign a one or multiple variants to an article.
 
-- variant_id
-- article_id
+| Property name | Type | Description                                        |
+|---------------|------|----------------------------------------------------|
+| variant_id    | UUID | Reference to the variant. Part of the primary key. |
+| article_id    | UUID | Reference to the article. Part of the primary key. |
 
 ### Vat
 
-Vat percentage.
+Possible vat percentage for
 
-- vat_id
-- percentage
+| Property name | Type   | Description                                                 |
+|---------------|--------|-------------------------------------------------------------|
+| vat_id        | UUID   | Unique identifier of the vat.                               |
+| percentage    | String | Decimal number representing the vat percentage.             |
+| description   | String | Description of the vat percentage (E.g. "Base percentage"). |
 
 ### User
 
 User of the software.
 
-- user_id
-- username
-- password_sha256
-- salt
-- blocked
-- anonymous
-- admin
-- pay_advance
+| Property name   | Type    | Description                                             |
+|-----------------|---------|---------------------------------------------------------|
+| user_id         | UUID    | Unique identifier of the user.                          |
+| username        | String  | Unique name of the user.                                |
+| password_sha256 | String  | SHA-256 has representation of the password.             |
+| salt            | String  | Password salt.                                          |
+| blocked         | Boolean | Indicates if the user is blocked.                       |
+| anonymous       | Boolean | Indicates if the user can login without authentication. |
+| admin           | Boolean | Indicates if the user has access to the admin view.     |
 
 ### User to category
 
-Indicates, which categories can be sold by a specific user.
+Not every user can sell every article category. E.g. the Barkeeper shouldn't be able to sell food. This table represents
+the n:n relation between a user and a category.
 
-- user_id
-- category_id
+| Property name | Type | Description                                         |
+|---------------|------|-----------------------------------------------------|
+| user_id       | UUID | Reference to the user. Part of the primary key.     |
+| category_id   | UUID | Reference to the category. Part of the primary key. |
