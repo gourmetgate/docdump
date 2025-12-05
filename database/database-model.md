@@ -38,7 +38,6 @@ A order of a customer.
 | evt_create    | Datetime | Datetime when the order is created                             |
 | table_id      | UUID     | Reference to the table, the customer sits on. (Soft reference) |
 | user_id       | UUID     | Reference to the user, who created the order.                  |
-| tip           | String   | Amount of tip in CHF for this order (Optional).                |
 
 ### Order item
 
@@ -69,7 +68,7 @@ A chosen variant option of an order item. E.g. "Ketchup" for the order item "Fri
 
 ### Payment
 
-Payment attempts, does not have to be successful. The amount is the final amount on the bill. This includes the summed
+Payments. The amount is the final amount on the bill. This includes the summed
 price of all order items, summed with the additional price of the order options and combined with the tip.
 
 | Property name | Type     | Description                                                              |
@@ -78,8 +77,18 @@ price of all order items, summed with the additional price of the order options 
 | external_id   | String   | Unique identifier of the external payment provider.                      |
 | order_id      | UUID     | Reference to the order the payment belongs to.                           |
 | amount        | String   | Total amount on the bill. Sum of order positions, order options and tip. |
-| state         | String   | State of the payment (enum). Possible states: `PAYED`, `FAILED`, `OPEN`. |
-| evt_pay       | Datetime | Date and time when the payment was paid (optional).                      |
+| tip           | String   | Amount of tip in CHF for this order (Optional).                          |
+
+### Payment state
+
+History of the payment atempts.
+
+| Property name    | Type     | Description                                                                     |
+|------------------|----------|---------------------------------------------------------------------------------|
+| payment_state_id | UUID     | Unique identifier of the payment state.                                         |
+| payment_id       | UUID     | Reference to the payment.                                                       |
+| evt_change       | Datetime | Event when the state change happened.                                           |
+| state            | String   | State of the payment (enum). Possible states: `PAYED`, `FAILED`, `INITIALIZED`. |
 
 ### Printer
 
