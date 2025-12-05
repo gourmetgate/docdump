@@ -43,16 +43,17 @@ A order of a customer.
 
 An article, added to an order.
 
-| Property name | Type   | Description                                         |
-|---------------|--------|-----------------------------------------------------|
-| order_item_id | UUID   | Unique identifier of the order item.                |
-| order_id      | UUID   | Reference to the order the item belongs to.         |
-| article_ID    | UUID   | Reference to the original article. (Soft reference) |
-| name          | String | Name of the order item (same as article name).      |
-| price         | String | Selling price of the order item inclusive vat.      |
-| vat           | String | Amount of vat in CHF.                               |
-| cost          | String | Purchase cost of order item. (optional)             |
-| comment       | String | User comment on this article item. (optional)       |
+| Property name | Type   | Description                                                                                |
+|---------------|--------|--------------------------------------------------------------------------------------------|
+| order_item_id | UUID   | Unique identifier of the order item.                                                       |
+| order_id      | UUID   | Reference to the order the item belongs to.                                                |
+| article_ID    | UUID   | Reference to the original article. (Soft reference)                                        |
+| payment_id    | UUID   | Reference to the payment the order item is payed. Empty when no payment exists. (optional) |
+| name          | String | Name of the order item (same as article name).                                             |
+| price         | String | Selling price of the order item inclusive vat.                                             |
+| vat           | String | Amount of vat in CHF.                                                                      |
+| cost          | String | Purchase cost of order item. (optional)                                                    |
+| comment       | String | User comment on this article item. (optional)                                              |
 
 ### Order item option
 
@@ -71,17 +72,16 @@ A chosen variant option of an order item. E.g. "Ketchup" for the order item "Fri
 Payments. The amount is the final amount on the bill. This includes the summed
 price of all order items, summed with the additional price of the order options and combined with the tip.
 
-| Property name | Type     | Description                                                              |
-|---------------|----------|--------------------------------------------------------------------------|
-| payment_id    | UUID     | Unique identifier of the payment attempt.                                |
-| external_id   | String   | Unique identifier of the external payment provider.                      |
-| order_id      | UUID     | Reference to the order the payment belongs to.                           |
-| amount        | String   | Total amount on the bill. Sum of order positions, order options and tip. |
-| tip           | String   | Amount of tip in CHF for this order (Optional).                          |
+| Property name | Type   | Description                                                              |
+|---------------|--------|--------------------------------------------------------------------------|
+| payment_id    | UUID   | Unique identifier of the payment attempt.                                |
+| external_id   | String | Unique identifier of the external payment provider.                      |
+| amount        | String | Total amount on the bill. Sum of order positions, order options and tip. |
+| tip           | String | Amount of tip in CHF for this order (Optional).                          |
 
 ### Payment state
 
-History of the payment atempts.
+History of the payment attempts.
 
 | Property name    | Type     | Description                                                                     |
 |------------------|----------|---------------------------------------------------------------------------------|
@@ -125,7 +125,7 @@ bar and food will be printed in the kitchen. This table represents the n:n relat
 | printer_id    | UUID | Reference to the printer. Part of the primary key.  |
 | category_id   | UUID | Reference to the category. Part of the primary key. |
 
-### Printer to user
+### Printer to room
 
 Depending on the user who places the order, a different printer should print the order. E.g. when a coke is ordered at
 bar, the order should come out of a different printer than when the coke is ordered in the restaurant hall. This table
@@ -134,7 +134,7 @@ represents the n:n relation between these two entities.
 | Property name | Type | Description                                        |
 |---------------|------|----------------------------------------------------|
 | printer_id    | UUID | Reference to the printer. Part of the primary key. |
-| user_id       | UUID | Reference to the user. Part of the primary key.    |
+| room_id       | UUID | Reference to the user. Part of the primary key.    |
 
 ### Settings
 
