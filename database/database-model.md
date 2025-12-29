@@ -4,23 +4,23 @@ This document gives an overview over the data structure of the application and d
 
 ## Entities
 
-### Article
+### Item
 
-A purchasable article. Each article has to belong to a category and must have a vat percentage assigned.
+A purchasable item. Each item has to belong to a category and must have a vat percentage assigned.
 
-| Property name | Type    | Description                                          |
-|---------------|---------|------------------------------------------------------|
-| article_id    | UUID    | Unique identifier of the article.                    |
-| name          | String  | Name of the article.                                 |
-| category_id   | UUID    | ID of the category, the article belongs to.          |
-| price         | String  | Selling price of the article in CHF inclusive vat.   |
-| vat_id        | UUID    | ID of the vat percentage.                            |
-| cost          | String  | Purchase cost of the article (optional).             |
-| available     | boolean | Indicates, if the article is available for purchase. |
+| Property name | Type    | Description                                       |
+|---------------|---------|---------------------------------------------------|
+| item_id       | UUID    | Unique identifier of the item.                    |
+| name          | String  | Name of the item.                                 |
+| category_id   | UUID    | ID of the category, the item belongs to.          |
+| price         | String  | Selling price of the item in CHF inclusive vat.   |
+| vat_id        | UUID    | ID of the vat percentage.                         |
+| cost          | String  | Purchase cost of the item (optional).             |
+| available     | boolean | Indicates, if the item is available for purchase. |
 
 ### Category
 
-A category of articles to enable logical grouping.
+A category of items to enable logical grouping.
 
 | Property name | Type   | Description                        |
 |---------------|--------|------------------------------------|
@@ -41,19 +41,19 @@ A order of a customer.
 
 ### Order item
 
-An article, added to an order.
+An item, added to an order.
 
 | Property name | Type   | Description                                                                                |
 |---------------|--------|--------------------------------------------------------------------------------------------|
 | order_item_id | UUID   | Unique identifier of the order item.                                                       |
 | order_id      | UUID   | Reference to the order the item belongs to.                                                |
-| article_ID    | UUID   | Reference to the original article. (Soft reference)                                        |
+| item_id       | UUID   | Reference to the original item. (Soft reference)                                           |
 | payment_id    | UUID   | Reference to the payment the order item is payed. Empty when no payment exists. (optional) |
-| name          | String | Name of the order item (same as article name).                                             |
+| name          | String | Name of the order item (same as item name).                                                |
 | price         | String | Selling price of the order item inclusive vat.                                             |
 | vat           | String | Amount of vat in CHF.                                                                      |
 | cost          | String | Purchase cost of order item. (optional)                                                    |
-| comment       | String | User comment on this article item. (optional)                                              |
+| comment       | String | User comment on this order item. (optional)                                                |
 
 ### Order item option
 
@@ -117,7 +117,7 @@ Print jobs that have to be printed by Printplate.
 
 ### Printer to category
 
-The user can configure, which category of articles will be printed on which printer. E.g. drinks will be printed at the
+The user can configure, which category of items will be printed on which printer. E.g. drinks will be printed at the
 bar and food will be printed in the kitchen. This table represents the n:n relation between these two entities.
 
 | Property name | Type | Description                                         |
@@ -157,7 +157,7 @@ A physical room in a building where customers are served.
 
 ### Table
 
-A table (not a database table) where the customer sits on and orders articles to.
+A table (not a database table) where the customer sits on and orders items to.
 
 // TODO rename entity -> conflicting keyword in SQL
 
@@ -169,8 +169,8 @@ A table (not a database table) where the customer sits on and orders articles to
 
 ### Variant
 
-A variant is a modifier for an article. E.g. the article "HotDog" has the variant "Sauce". A variant can be added to
-multiple articles.
+A variant is a modifier for an item. E.g. the item "HotDog" has the variant "Sauce". A variant can be added to
+multiple items.
 
 | Property name | Type    | Description                                                |
 |---------------|---------|------------------------------------------------------------|
@@ -189,14 +189,14 @@ A concrete option of a variant. E.g. "Ketchup" for the variant "Sauce".
 | name              | String | The name of the variant option.          |
 | additional_price  | String | The price this option costs.             |
 
-### Variant to article
+### Variant to item
 
-Mapping table to assign a one or multiple variants to an article.
+Mapping table to assign a one or multiple variants to an item.
 
 | Property name | Type | Description                                        |
 |---------------|------|----------------------------------------------------|
 | variant_id    | UUID | Reference to the variant. Part of the primary key. |
-| article_id    | UUID | Reference to the article. Part of the primary key. |
+| item_id       | UUID | Reference to the item. Part of the primary key.    |
 
 ### Vat
 
@@ -225,7 +225,7 @@ User of the software.
 
 ### User to category
 
-Not every user can sell every article category. E.g. the Barkeeper shouldn't be able to sell food. This table represents
+Not every user can sell every item category. E.g. the Barkeeper shouldn't be able to sell food. This table represents
 the n:n relation between a user and a category.
 
 | Property name | Type | Description                                         |
