@@ -200,7 +200,7 @@ Mapping table to assign a one or multiple variants to an item.
 
 ### Vat
 
-Possible vat percentage for
+Possible vat percentage for items.
 
 | Property name | Type   | Description                                                 |
 |---------------|--------|-------------------------------------------------------------|
