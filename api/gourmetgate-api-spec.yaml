@@ -9,77 +9,6 @@ servers:
   - url: 'https://gouga.com'
     description: production environment
 paths:
-  /articles:
-    get:
-      summary: Returns a list of all available articles
-      tags:
-        - Articles
-      parameters:
-        - in: query
-          name: available
-          schema:
-            type: boolean
-          example: 'true'
-          description: 'When set to true, only available articles are returned. When set to false, only unavailable articles are returned. When unspecified, all articles are returned. '
-      responses:
-        200:
-          description: OK
-          content:
-            application/json:
-              schema:
-                $ref: "#/components/schemas/ArticlesResponse"
-    post:
-      summary: Create a new article
-      tags:
-        - Articles
-      requestBody:
-        content:
-          application/json:
-            schema:
-              $ref: "#/components/schemas/Article"
-      responses:
-        200:
-          description: OK - note that article_id property will get replaced when creating new article
-          content:
-            application/json:
-              schema:
-                $ref: "#/components/schemas/Article"
-  /articles/{articleId}:
-    get:
-      summary: Get article by ID
-      tags:
-        - Articles
-      responses:
-        200:
-          description: OK
-          content:
-            application/json:
-              schema:
-                $ref: "#/components/schemas/Article"
-    put:
-      summary: Update article by ID
-      tags:
-        - Articles
-      requestBody:
-        content:
-          application/json:
-            schema:
-              $ref: "#/components/schemas/Article"
-      responses:
-        200:
-          description: OK
-          content:
-            application/json:
-              schema:
-                $ref: "#/components/schemas/Article"
-    delete:
-      summary: Delete an article by ID
-      tags:
-        - Articles
-      responses:
-        200:
-          description: OK
-
   /categories:
     get:
       summary: Returns a list of all categories
@@ -92,6 +21,8 @@ paths:
             application/json:
               schema:
                 $ref: "#/components/schemas/CategoryResponse"
+        404:
+          description: Not found
     post:
       summary: Create a new category
       tags:
@@ -120,6 +51,8 @@ paths:
             application/json:
               schema:
                 $ref: "#/components/schemas/Category"
+        404:
+          description: Not found
     put:
       summary: Update category by ID
       tags:
@@ -143,54 +76,80 @@ paths:
       responses:
         200:
           description: OK
-
+  /items:
+    get:
+      summary: Returns a list of all items
+      tags:
+        - Items
+      responses:
+        200:
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/ItemResponse"
+        404:
+          description: Not found
+    post:
+      summary: Create a new item
+      tags:
+        - Items
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/Item"
+      responses:
+        200:
+          description: OK - note that itemId property will get replaced when creating new category
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/Item"
+  /item/{itemId}:
+    get:
+      summary: Get item by ID
+      tags:
+        - Items
+      responses:
+        200:
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/Item"
+        404:
+          description: Not found
+    put:
+      summary: Update item by ID
+      tags:
+        - Items
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/Item"
+      responses:
+        200:
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/Item"
+    delete:
+      summary: Delete an item by ID
+      tags:
+        - Items
+      responses:
+        200:
+          description: OK
 
 components:
   schemas:
-    Article:
-      type: object
-      properties:
-        article_id:
-          type: string
-          description: 'Unique identifier of the article'
-          format: UUID
-          example: '86cb99de-cb0b-450f-b239-526b3efc9bda'
-        name:
-          type: string
-          description: 'Name of the article'
-          example: 'HotDog'
-        category_id:
-          type: string
-          description: 'ID of the category, the article belongs to'
-          format: UUID
-          example: 'bed363fa-287b-43e9-9ee2-d676ff7bd774'
-        price:
-          type: string
-          description: 'Selling price of the article in CHF'
-          example: '5.00'
-        vat_id:
-          type: string
-          description: ID of the vat percentage
-          example: '2432f1f9-de7e-4f00-986d-db3ec47cdaeb'
-        cost:
-          type: string
-          description: 'Purchase cost of the article (optional)'
-          example: '3.50'
-        available:
-          type: boolean
-          description: 'Indicates, if the article is available for purchase'
-          example: 'true'
-    ArticlesResponse:
-      type: object
-      properties:
-        articles:
-          type: array
-          items:
-            $ref: "#/components/schemas/Article"
     Category:
       type: object
       properties:
-        category_id:
+        categoryId:
           type: string
           description: 'Unique identifier of the category'
           format: UUID
@@ -198,7 +157,11 @@ components:
         name:
           type: string
           description: 'Name of the category'
-          example: '2bf53e31-08ea-4687-80a2-eb73b0cef925'
+          example: 'Food'
+        items:
+          type: array
+          items:
+            $ref: "#/components/schemas/Item"
     CategoryResponse:
       type: object
       properties:
@@ -206,14 +169,101 @@ components:
           type: array
           items:
             $ref: "#/components/schemas/Category"
+    Item:
+      type: object
+      properties:
+        itemId:
+          type: string
+          description: 'Unique identifier of the item'
+          format: UUID
+          example: '826d9fc5-a0f1-4eec-8350-cc38a95f10f9'
+        categoryId:
+          type: string
+          description: 'Id of the category the item belongs to'
+          format: UUID
+          example: 'fb6259f1-106c-40f5-898b-d3c64216a732'
+        vatId:
+          type: string
+          description: 'Id of the vat percentage the item belongs to'
+          format: UUID
+          example: 'b9684004-ea58-4efc-b6a3-742a6ff9b256'
+        name:
+          type: string
+          description: 'Name of the item'
+          example: 'Fries'
+        price:
+          type: string
+          format: CHF
+          description: 'Selling price of the item in CHF inclusive vat'
+          example: '5.00'
+        cost:
+          type: string
+          format: CHF
+          description: 'Purchase cost of the item (optional)'
+          example: '1.85'
+        available:
+          type: boolean
+          description: 'Indicates, if the item is available for purchase'
+          example: 'true'
+        variants:
+          type: array
+          items:
+            $ref: "#/components/schemas/Variant"
+    ItemResponse:
+      type: object
+      properties:
+        items:
+          type: array
+          items:
+            $ref: "#/components/schemas/Item"
+    Variant:
+      type: object
+      properties:
+        variantId:
+          type: string
+          format: UUID
+          description: 'Unique identifier of the variant'
+          example: 'c7ac57a0-79a1-42c7-8bb2-051637f54861'
+        name:
+          type: string
+          format: UUID
+          description: 'Name of the variant'
+          example: 'Sauce'
+        singleOption:
+          type: boolean
+          description: 'Indicates if only a single option of this variant allowed'
+          example: 'false'
+        options:
+          type: array
+          items:
+            $ref: "#/components/schemas/VariantOption"
+    VariantOption:
+      type: object
+      properties:
+        variantOptionId:
+          type: string
+          format: UUID
+          description: 'Unique identifier of the variant option'
+          example: '57b56690-1099-4d57-ad34-dcdc69a0ee68'
+        variantId:
+          type: string
+          format: UUID
+          description: 'The variant the option belongs to'
+          example: '70cc38a5-ddd8-4727-b2ee-4ddce9f30819'
+        name:
+          type: string
+          description: 'The name of the variant option'
+          example: 'Ketchup'
+        additionalPrice:
+          type: string
+          format: CHF
+          description: 'The price this option costs'
+          example: '0.00'
+
 
 
 tags:
-  - name: Articles
-    description: Purchasable articles
-    externalDocs:
-      url: 'https://github.com/gourmetgate/docdump/blob/main/database/database-model.md#article'
   - name: Categories
-    description: A category of articles to enable logical grouping
-    externalDocs:
-      url: 'https://github.com/gourmetgate/docdump/blob/main/database/database-model.md#category'
+    description: A category of items to split them into groups
+  - name: Items
+    description: An item that can be purchased by the customer.
