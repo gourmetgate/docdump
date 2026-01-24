@@ -143,6 +143,23 @@ paths:
       responses:
         200:
           description: OK
+  /query:
+    post:
+      summary: Returns a list of requested entities
+      tags:
+        - Query
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/QueryRestriction"
+      responses:
+        200:
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/QueryResponse"
 
 components:
   schemas:
@@ -158,10 +175,6 @@ components:
           type: string
           description: 'Name of the category'
           example: 'Food'
-        items:
-          type: array
-          items:
-            $ref: "#/components/schemas/Item"
     CategoryResponse:
       type: object
       properties:
@@ -205,10 +218,6 @@ components:
           type: boolean
           description: 'Indicates, if the item is available for purchase'
           example: 'true'
-        variants:
-          type: array
-          items:
-            $ref: "#/components/schemas/Variant"
     ItemResponse:
       type: object
       properties:
@@ -259,11 +268,68 @@ components:
           format: CHF
           description: 'The price this option costs'
           example: '0.00'
-
-
+    Vat:
+      type: object
+      properties:
+        vatId:
+          type: string
+          format: UUID
+          description: 'The unique identifier of the vat'
+          example: '00e7abc6-6bc6-4749-9ad2-6a2ad243a252'
+        percentage:
+          type: string
+          description: 'The vat percentage'
+          example: '8.1'
+        description:
+          type: string
+          description: 'The description of the vat'
+          example: 'Swiss default vat percentage'
+    QueryRestriction:
+      type: object
+      properties:
+        categoryRestriction:
+          type: object,
+          description: 'Restrictions for finding categories'
+        itemRestriction:
+          type: object
+          properties:
+            categoryIds:
+              type: array
+              description: 'Categories the items have to belong to.'
+              items:
+                type: string
+                format: UUID
+                example: 'b34db246-06ba-4d5b-9f96-21113ca17073'
+            available:
+              type: boolean
+              description: 'Indicates if the items have to be available or not.'
+              example: 'true'
+        vatRestriction:
+          type: object,
+          description: 'Restrictions for finding vat percentages'
+    QueryResponse:
+      type: object
+      properties:
+        categories:
+          type: array
+          description: 'A list of found categories.'
+          items:
+            $ref: "#/components/schemas/Category"
+        items:
+          type: array
+          description: 'A list of found items.'
+          items:
+            $ref: "#/components/schemas/Item"
+        vat:
+          type: array
+          description: 'A list of found vat.'
+          items:
+            $ref: "#/components/schemas/Vat"
 
 tags:
   - name: Categories
     description: A category of items to split them into groups
   - name: Items
     description: An item that can be purchased by the customer.
+  - name: Query
+    description: Endpoint used to query a set of entities based on a restriction.
