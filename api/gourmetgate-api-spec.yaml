@@ -73,6 +73,14 @@ paths:
       summary: Delete a category by ID
       tags:
         - Categories
+      parameters:
+        - in: path
+          name: replacementId
+          schema:
+            type: string
+            format: UUID
+          required: true
+          description: Id of category that replaces the old one.
       responses:
         200:
           description: OK
@@ -140,6 +148,73 @@ paths:
       summary: Delete an item by ID
       tags:
         - Items
+      responses:
+        200:
+          description: OK
+  /vat:
+    get:
+      summary: Returns a list of all vat percentages
+      tags:
+        - Vat
+      responses:
+        200:
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/VatResponse"
+        404:
+          description: Not found
+    post:
+      summary: Create a new vat
+      tags:
+        - Vat
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/Vat"
+      responses:
+        200:
+          description: OK - note that vat_id property will get replaced when creating new category
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/Vat"
+  /vat/{vatId}:
+    get:
+      summary: Get vat by ID
+      tags:
+        - Vat
+      responses:
+        200:
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/Vat"
+        404:
+          description: Not found
+    put:
+      summary: Update vat by ID
+      tags:
+        - Vat
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/Vat"
+      responses:
+        200:
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/Vat"
+    delete:
+      summary: Delete a vat by ID
+      tags:
+        - Vat
       responses:
         200:
           description: OK
@@ -284,6 +359,13 @@ components:
           type: string
           description: 'The description of the vat'
           example: 'Swiss default vat percentage'
+    VatResponse:
+      type: object
+      properties:
+        items:
+          type: array
+          items:
+            $ref: "#/components/schemas/Vat"
     QueryRestriction:
       type: object
       properties:
@@ -331,5 +413,7 @@ tags:
     description: A category of items to split them into groups
   - name: Items
     description: An item that can be purchased by the customer.
+  - name: Vat
+    description: Vat percentages of purchasable items.
   - name: Query
     description: Endpoint used to query a set of entities based on a restriction.
