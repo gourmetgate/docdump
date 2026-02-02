@@ -151,6 +151,73 @@ paths:
       responses:
         200:
           description: OK
+  /variant:
+    get:
+      summary: Returns a list of all variants
+      tags:
+        - Variant
+      responses:
+        200:
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/VariantResponse"
+        404:
+          description: Not found
+    post:
+      summary: Create a new variant
+      tags:
+        - Variant
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/Variant"
+      responses:
+        200:
+          description: OK - note that variant_id property will get replaced when creating new variant
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/Variant"
+  /variant/{variantId}:
+    get:
+      summary: Get variant by ID
+      tags:
+        - Variant
+      responses:
+        200:
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/Variant"
+        404:
+          description: Not found
+    put:
+      summary: Update variant by ID
+      tags:
+        - Variant
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/Variant"
+      responses:
+        200:
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/Variant"
+    delete:
+      summary: Delete a variant by ID
+      tags:
+        - Variant
+      responses:
+        200:
+          description: OK
   /vat:
     get:
       summary: Returns a list of all vat percentages
@@ -293,6 +360,12 @@ components:
           type: boolean
           description: 'Indicates, if the item is available for purchase'
           example: 'true'
+        variantIds:
+          type: array
+          description: 'Ids of variants that are activated for this item'
+          items:
+            type: string
+            format: UUID
     ItemResponse:
       type: object
       properties:
@@ -321,6 +394,11 @@ components:
           type: array
           items:
             $ref: "#/components/schemas/VariantOption"
+        itemIds:
+          type: array
+          items:
+            type: string
+            format: UUID
     VariantOption:
       type: object
       properties:
@@ -343,6 +421,13 @@ components:
           format: CHF
           description: 'The price this option costs'
           example: '0.00'
+    VariantResponse:
+      type: object
+      properties:
+        variants:
+          type: array
+          items:
+            $ref: "#/components/schemas/Variant"
     Vat:
       type: object
       properties:
@@ -413,6 +498,8 @@ tags:
     description: A category of items to split them into groups
   - name: Items
     description: An item that can be purchased by the customer.
+  - name: Variant
+    description: A variant for an item.
   - name: Vat
     description: Vat percentages of purchasable items.
   - name: Query
