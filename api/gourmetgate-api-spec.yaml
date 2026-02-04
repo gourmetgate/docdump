@@ -447,7 +447,7 @@ components:
     VatResponse:
       type: object
       properties:
-        items:
+        vat:
           type: array
           items:
             $ref: "#/components/schemas/Vat"
