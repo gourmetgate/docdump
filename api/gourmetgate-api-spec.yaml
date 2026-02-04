@@ -455,11 +455,30 @@ components:
       type: object
       properties:
         categoryRestriction:
-          type: object,
+          type: object
           description: 'Restrictions for finding categories'
+          properties:
+            categoryId:
+              type: string
+              format: UUID
+              example: '6560e202-4fa6-417f-83bc-cba52feabe6f'
+              description: 'Id of the category that should be fetched (get by key)'
+            name:
+              type: string
+              example: 'Foo'
+              description: 'Only categories containing the given value in the name are fetched (case in-sensitive)'
         itemRestriction:
           type: object
           properties:
+            itemId:
+              type: string
+              format: UUID
+              example: 'db761cd0-8346-4d96-8d50-e637878e598c'
+              description: 'Id of the item that should be fetched (get by key)'
+            name:
+              type: string
+              example: 'Coc'
+              description: 'Only items containing the given value in the name are fetched (case in-sensitive)'
             categoryIds:
               type: array
               description: 'Categories the items have to belong to.'
@@ -471,9 +490,27 @@ components:
               type: boolean
               description: 'Indicates if the items have to be available or not.'
               example: 'true'
+        variantRestriction:
+          type: object
+          properties:
+            variantId:
+              type: string
+              format: UUID
+              example: '9b092031-5781-4ec6-9aec-9e9487a99476'
+              description: 'Id of the variant that should be fetched (get by key)'
+            name:
+              type: string
+              example: 'Sau'
+              description: 'Only variants containing the given value in the name are fetched (case in-sensitive)'
         vatRestriction:
-          type: object,
+          type: object
           description: 'Restrictions for finding vat percentages'
+          properties:
+            vatId:
+              type: string
+              format: UUID
+              example: '137c1eb1-b644-4f5a-8d39-01d973f1b509'
+              description: 'Id of the vat that should be fetched (get by key)'
     QueryResponse:
       type: object
       properties:
@@ -487,6 +524,11 @@ components:
           description: 'A list of found items.'
           items:
             $ref: "#/components/schemas/Item"
+        variants:
+          type: array
+          description: 'A list of found variants.'
+          items:
+            $ref: "#/components/schemas/Variant"
         vat:
           type: array
           description: 'A list of found vat.'
